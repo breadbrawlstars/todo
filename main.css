@@ -1,0 +1,482 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+::selection {
+  background: #71797E;
+}
+
+button {
+  appearance: none;
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+body {
+  background-size: cover;
+  color: #000;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+.app {
+  width: 100%;
+  max-width: 768px;
+}
+
+.app header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.app header h1 {
+  color: #000;
+  font-size: 24px;
+  font-weight: 400 bold;
+  transition: .15s ease-in-out;
+}
+
+.app header h1:hover {
+  scale: 1.05;
+}
+
+.app header button {
+  color: #1bbb64;
+  font-size: 18px;
+  text-transform: uppercase;
+  position: relative;
+  border-left: 3px solid #1bbb64;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  transition: .25s;
+}
+
+.app header button:hover {
+  color: black;
+  border: none;
+}
+
+.app header button::before {
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+
+.app header button:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.app header button::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: #1bbb64;
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+/* different "add new todo animation" .app header button {
+     color: #18a558;
+     border-bottom: 2px solid #18a558;
+     border-radius: 2.5px;
+     font-size: 18px;
+     text-transform: uppercase;
+     box-shadow: inset 0 0 0 0 #18a558;
+     margin: 0 -.25rem;
+     padding: 0 .25rem;
+     transition: color .25s ease-in-out, box-shadow .25s ease-in-out, border .25s ease-in-out;
+}
+ .app header button:hover {
+     border-radius: 5px;
+     border: none;
+     color: black;
+     box-shadow: inset 150px 0 0 0 #18a558;
+}
+ */
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: rgba(256 256 256 / 40%);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  transition: .25s ease-in-out;
+}
+
+.item:last-of-type {
+  margin-bottom: 0;
+}
+
+.item input[type="checkbox"] {
+  margin-right: 1rem;
+}
+
+.item input[type="text"] {
+
+/*   
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  */
+  
+  font-weight: 400;
+  color: #000;
+  font-size: 20px;
+  flex: 1 1 0%;
+  margin-right: 1rem;
+  width: 80%;
+}
+
+.item input[type="text"]:not(:disabled) {
+  border-bottom: 2px solid #000;
+}
+
+.item.complete {
+  background: rgba(256 256 256 / 20%);
+}
+
+.item.complete input[type="text"] {
+  text-decoration: line-through;
+}
+
+.item:hover,
+.item:focus-within {}
+
+.actions button {
+  color: #F4BB44;
+  margin-right: 1rem;
+  opacity: 0.8;
+  transform: 0.1s;
+  transition: 0.25s ease-in-out;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+  padding: 2.5px;
+}
+
+.actions button.remove-btn {
+  color: crimson;
+  border-top-left-radius: 1px;
+  border-bottom-left-radius: 1px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.actions button:hover {
+  opacity: 1;
+  background: #343434;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5)
+}
+
+.actions button:last-of-type {
+  margin-right: 0;
+}
+
+.todo-container {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 600px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  /* Add padding to the to-do item */
+  margin-bottom: 10px;
+}
+
+.todo-text {
+  font-size: 18px;
+  flex: 1;
+  padding-right: 10px;
+  word-break: break-all;
+}
+
+.todo-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+
+.edit-button,
+.delete-button {
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 480px) {
+  .todo-container {
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
+/* code for checkbox */
+input[type=checkbox] {
+  --active: #275EFE;
+  --active-inner: #fff;
+  --focus: 2px rgba(39, 94, 254, .3);
+  --border: #BBC1E1;
+  --border-hover: #275EFE;
+  --background: #fff;
+  --disabled: #F6F8FF;
+  --disabled-inner: #E1E6F9;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 21px;
+  outline: none;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  border: 1px solid var(--bc, var(--border));
+  background: var(--b, var(--background));
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+
+input[type=checkbox]:after {
+  content: "";
+  display: block;
+  left: 0;
+  top: 0;
+  position: absolute;
+  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+}
+
+input[type=checkbox]:checked {
+  --b: var(--active);
+  --bc: var(--active);
+  --d-o: .3s;
+  --d-t: .6s;
+  --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+}
+
+input[type=checkbox]:disabled {
+  --b: var(--disabled);
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+input[type=checkbox]:disabled:checked {
+  --b: var(--disabled-inner);
+  --bc: var(--border);
+}
+
+input[type=checkbox]:disabled+label {
+  cursor: not-allowed;
+}
+
+input[type=checkbox]:hover:not(:checked):not(:disabled) {
+  --bc: var(--border-hover);
+}
+
+input[type=checkbox]:focus {
+  box-shadow: 0 0 0 var(--focus);
+}
+
+input[type=checkbox]:not(.switch) {
+  width: 21px;
+  border-radius: 7px;
+}
+
+input[type=checkbox]:not(.switch):after {
+  opacity: var(--o, 0);
+  width: 5px;
+  height: 9px;
+  border: 2px solid var(--active-inner);
+  border-top: 0;
+  border-left: 0;
+  left: 7px;
+  top: 4px;
+  transform: rotate(var(--r, 20deg));
+}
+
+input[type=checkbox]:not(.switch):checked {
+  --o: 1;
+  --r: 43deg;
+}
+
+input[type=checkbox].switch {
+  width: 38px;
+  border-radius: 11px;
+}
+
+input[type=checkbox].switch:checked {
+  --ab: var(--active-inner);
+  --x: 17px;
+}
+
+input[type=checkbox].switch:disabled:not(:checked):after {
+  opacity: 0.6;
+}
+
+input[type=checkbox].switch:after {
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: var(--ab, var(--border));
+  transform: translateX(var(--x, 0));
+}
+
+input[type=checkbox]+label {
+  font-size: 14px;
+  line-height: 21px;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+input[type=checkbox] {
+  box-sizing: inherit;
+}
+
+input[type=checkbox]:before,
+input[type=checkbox]:after {
+  box-sizing: inherit;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+.button-group button {
+  margin-right: 0px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .button-icon {
+    display: inline-block;
+    padding-right: 7.5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 1px;
+    color: black;
+    transition: .25s;
+  }
+
+  .button-text {
+    display: none;
+  }
+
+  .actions button {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.5);
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  .button-icon {
+    display: none;
+  }
+
+  .button-text {
+    display: inline-block;
+  }
+
+  .actions button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header {
+    font-size: 24px;
+  }
+
+  .todo-input {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .todo-item {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+#color-picker {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  display: none;
+}
+
+input[type=color] {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 30px;
+}
